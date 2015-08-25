@@ -12,4 +12,9 @@ class YouTrack::Client::Model
   def require_admin!
     raise YouTrack::NotAnAdminError unless service.current_user.admin?
   end
+
+  # @todo add to cistern
+  def read_attribute_for_serialization(n)
+    attributes[n]
+  end
 end

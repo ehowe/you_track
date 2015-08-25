@@ -21,6 +21,10 @@ class YouTrack::Client::Issue < YouTrack::Client::Model
 
   attr_accessor :permitted_group
 
+  def subtasks
+    (custom_fields["links"] || []).select { |c| c["type"] == "Subtask" }.map { |c| collection.get(c["__content__"]) if c["role"] == "parent for" }.compact
+  end
+
   def comments
     service.comments.load(service.get_issue_comments(self.identity).body)
   end

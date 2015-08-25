@@ -9,8 +9,8 @@ class YouTrack::Client::Project < YouTrack::Client::Model
 
   attr_accessor :starting_number, :lead, :prefix
 
-  def issues
-    service.issues.all(self.identity)
+  def issues(max=10)
+    service.issues.all(self.identity, "max" => max)
   end
 
   def custom_fields
